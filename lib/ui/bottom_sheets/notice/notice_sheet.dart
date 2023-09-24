@@ -1,3 +1,4 @@
+import 'package:filter/data_model/country_state.dart';
 import 'package:flutter/material.dart';
 import 'package:filter/ui/common/app_colors.dart';
 import 'package:filter/ui/common/ui_helpers.dart';
@@ -22,6 +23,7 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
     Widget? child,
   ) {
     return Container(
+      height: 500,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -46,6 +48,48 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
             softWrap: true,
           ),
           verticalSpaceLarge,
+          TextField(
+            decoration: const InputDecoration(
+              hintText: 'Search States',
+            ),
+            onChanged: viewModel.filter,
+          ),
+          verticalSpaceMedium,
+          Expanded(
+            child: Builder(
+              builder: (context) {
+                if (viewModel.data == null || viewModel.data!.isEmpty) {
+                  return const Center(
+                    child: Text('No State(s) found'),
+                  );
+                }
+
+                return ListView.separated(
+                  itemBuilder: (context, index) {
+                    final CountryState? state =
+                        viewModel.data?.elementAt(index);
+                    return ListTile(
+                      title: Text(state?.name ?? '--'),
+                      onTap: () {
+                        completer!(
+                          SheetResponse(
+                            confirmed: true,
+                            data: state,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(
+                      height: 5,
+                    );
+                  },
+                  itemCount: viewModel.data?.length ?? 0,
+                );
+              },
+            ),
+          ),
         ],
       ),
     );

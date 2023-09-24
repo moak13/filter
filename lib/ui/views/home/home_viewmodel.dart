@@ -28,6 +28,7 @@ class HomeViewModel extends BaseViewModel {
 
   void showBottomSheet() {
     _bottomSheetService.showCustomSheet(
+      isScrollControlled: true,
       variant: BottomSheetType.notice,
       title: ksHomeBottomSheetTitle,
       description: ksHomeBottomSheetDescription,
