@@ -13,7 +13,6 @@ class NoticeSheetModel extends FutureViewModel<List<CountryState>?> {
     try {
       final states = await _jsonResourceService.loadStatesFromAsset();
       memoryList = states;
-      rebuildUi();
       return states;
     } catch (e) {
       return null;

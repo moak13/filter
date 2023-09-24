@@ -58,7 +58,8 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
           Expanded(
             child: Builder(
               builder: (context) {
-                if (viewModel.data == null || viewModel.data!.isEmpty) {
+                List<CountryState>? states = viewModel.data;
+                if (states == null || states.isEmpty) {
                   return const Center(
                     child: Text('No State(s) found'),
                   );
@@ -66,10 +67,9 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
 
                 return ListView.separated(
                   itemBuilder: (context, index) {
-                    final CountryState? state =
-                        viewModel.data?.elementAt(index);
+                    final CountryState state = states.elementAt(index);
                     return ListTile(
-                      title: Text(state?.name ?? '--'),
+                      title: Text(state.name ?? '--'),
                       onTap: () {
                         completer!(
                           SheetResponse(
@@ -85,7 +85,7 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
                       height: 5,
                     );
                   },
-                  itemCount: viewModel.data?.length ?? 0,
+                  itemCount: states.length,
                 );
               },
             ),
