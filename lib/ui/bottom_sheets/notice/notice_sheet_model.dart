@@ -13,6 +13,7 @@ class NoticeSheetModel extends FutureViewModel<List<CountryState>?> {
     try {
       final states = await _jsonResourceService.loadStatesFromAsset();
       memoryList = states;
+      rebuildUi();
       return states;
     } catch (e) {
       return null;
@@ -25,7 +26,6 @@ class NoticeSheetModel extends FutureViewModel<List<CountryState>?> {
   }
 
   void filter(String? value) {
-    data?.clear();
     if (memoryList == null && memoryList!.isEmpty) {
       return;
     }
@@ -52,8 +52,8 @@ class NoticeSheetModel extends FutureViewModel<List<CountryState>?> {
     data?.clear();
     if (result != null && result.isNotEmpty) {
       data = result;
-      rebuildUi();
-      return;
     }
+
+    rebuildUi();
   }
 }
