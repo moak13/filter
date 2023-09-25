@@ -28,5 +28,6 @@ import 'package:filter/services/json_resource_service.dart';
     StackedDialog(classType: InfoAlertDialog),
     // @stacked-dialog
   ],
+  logger: StackedLogger(),
 )
 class App {}
